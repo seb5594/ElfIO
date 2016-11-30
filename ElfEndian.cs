@@ -12,7 +12,8 @@ namespace ElfIO
 
         public ElfEndian(ElfData elfdata)
         {
-            if (elfdata == ElfData.ED_MSB)
+            reverse = elfdata == ElfData.ED_LSB ? BitConverter.IsLittleEndian : elfdata == ElfData.ED_MSB ? !BitConverter.IsLittleEndian : false;
+            /*if (elfdata == ElfData.ED_MSB)
             {
                 if (BitConverter.IsLittleEndian)
                 {
@@ -27,7 +28,7 @@ namespace ElfIO
                     // Reverse if elf is little endian and host big endian
                     reverse = true;
                 }
-            }
+            }*/
         }
 
         public Byte Convert(Byte value)

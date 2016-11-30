@@ -73,21 +73,7 @@ namespace ElfIO
 
             // Write Elf
             writer.Write("****ELF HEADER****\n");
-            writer.Write(String.Format("ID: {0}\nType: {1}\nMachine: {2}\nVersion: {3}\nEntryPoint: 0x{4:X8}\nPHOffset: 0x{5:X8}\nSHOffset: 0x{6:X8}\nFlags: 0x{7:X4}\nHeaderSize: 0x{8:X2}\nPHSize: 0x{9:X2}\nPHCount: 0x{10:X2}\nSHSize: 0x{11:X2}\nSHCount: 0x{12:X2}\nStringTable: 0x{13:X2}\n\n",
-                             BitConverter.ToString(elfhdr.Identification),
-                             elfhdr.Type.ToString(),
-                             elfhdr.MachineType.ToString(),
-                             elfhdr.Version.ToString(),
-                             elfhdr.EntryPoint,
-                             elfhdr.ProgramHeaderOffset,
-                             elfhdr.SectionHeaderOffset,
-                             elfhdr.Flags,
-                             elfhdr.HeaderSize,
-                             elfhdr.ProgramHeaderSize,
-                             elfhdr.ProgramHeaderCount,
-                             elfhdr.SectionHeaderSize,
-                             elfhdr.SectionHeaderCount,
-                             elfhdr.StringTable));
+            writer.Write(elfhdr.ToString());
 
             // Write PHDR
             writer.Write("****PROGRAM HEADERS****\n");

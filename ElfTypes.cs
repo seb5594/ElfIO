@@ -785,6 +785,18 @@ namespace ElfIO
                 DataSize = 0x38;
         }
 
+        public override string ToString() =>
+            String.Format("Type = {0}\nFlags = {1}\nOffset = 0x{2:X8} => 0x{8:X8} => 0x{9:X8}\nVaddr = 0x{3:X8}\nPaddr = 0x{4:X8}\nFilesz = 0x{5:X8}\nMemsz = 0x{6:X8}\nAlign = 0x{7:X8}\n\n",
+                    Type,
+                    Flags,
+                    FileOffset,
+                    VirtualAddress,
+                    PhysicalAddress,
+                    FileSize,
+                    MemorySize,
+                    Align,
+                    FileOffset + FileSize,
+                    (FileOffset + FileSize + Align - 1) & ~(Align - 1));
 
         public void Load(ElfEndian endian, ElfClass elfclass, Byte[] data)
         {
@@ -988,6 +1000,21 @@ namespace ElfIO
             else
                 DataSize = 0x40;
         }
+
+        public override String ToString() =>
+            String.Format("Name: 0x{0:X4}\nType: {1}\nFlags: {2}\nAddress: 0x{3:X8}\nOffset: 0x{4:X8} => 0x{10:X8} => 0x{11:X8}\nSize: 0x{5:X8}\nLink: 0x{6:X4}\nInfo: 0x{7:X4}\nAlign: 0x{8:X8}\nEntries: 0x{9:X8}\n\n",
+                            Name,
+                            Type,
+                            Flags,
+                            Address,
+                            FileOffset,
+                            Size,
+                            Link,
+                            Info,
+                            Align,
+                            EntrySize,
+                            FileOffset + Size,
+                            (FileOffset + Size + Align - 1) & ~(Align - 1));
 
         public void Load(ElfEndian endian, ElfClass elfclass, Byte[] data)
         {

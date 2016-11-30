@@ -72,47 +72,20 @@ namespace ElfIO
             System.IO.BinaryWriter writer = new System.IO.BinaryWriter(System.IO.File.Create("dump.txt"));
 
             // Write Elf
-            writer.Write("****ELF HEADER****\n");
-            writer.Write(elfhdr.ToString());
+            writer.Write(String.Format("****ELF HEADER****\n{0}\n", elfhdr.ToString()));
 
             // Write PHDR
             writer.Write("****PROGRAM HEADERS****\n");
             for (int i = 0; i < elfhdr.ProgramHeaderCount; i++)
             {
-                elfphdr = programs[i].Header;
-                writer.Write(String.Format("Program[{10}]\nType = {0}\nFlags = {1}\nOffset = 0x{2:X8} => 0x{8:X8} => 0x{9:X8}\nVaddr = 0x{3:X8}\nPaddr = 0x{4:X8}\nFilesz = 0x{5:X8}\nMemsz = 0x{6:X8}\nAlign = 0x{7:X8}\n\n",
-                            elfphdr.Type.ToString(),
-                            elfphdr.Flags.ToString(),
-                            elfphdr.FileOffset,
-                            elfphdr.VirtualAddress,
-                            elfphdr.PhysicalAddress,
-                            elfphdr.FileSize,
-                            elfphdr.MemorySize,
-                            elfphdr.Align,
-                            elfphdr.FileOffset + elfphdr.FileSize,
-                            (elfphdr.FileOffset + elfphdr.FileSize + elfphdr.Align - 1) & ~(elfphdr.Align - 1),
-                            i));
+                writer.Write(String.Format("Program[{0}]\n{1}\n", i, programs[i].Header.ToString()));
             }
 
             // WRITE SHDR
             writer.Write("****SECTION HEADERS****\n");
             for (int i = 0; i < elfhdr.SectionHeaderCount; i++)
             {
-                elfshdr = sections[i].Header;
-                writer.Write(String.Format("Section[{12}]\nName: 0x{0:X4}\nType: {1}\nFlags: {2}\nAddress: 0x{3:X8}\nOffset: 0x{4:X8} => 0x{10:X8} => 0x{11:X8}\nSize: 0x{5:X8}\nLink: 0x{6:X4}\nInfo: 0x{7:X4}\nAlign: 0x{8:X8}\nEntries: 0x{9:X8}\n\n",
-                            elfshdr.Name,
-                            elfshdr.Type.ToString(),
-                            elfshdr.Flags.ToString(),
-                            elfshdr.Address,
-                            elfshdr.FileOffset,
-                            elfshdr.Size,
-                            elfshdr.Link,
-                            elfshdr.Info,
-                            elfshdr.Align,
-                            elfshdr.EntrySize,
-                            elfshdr.FileOffset + elfshdr.Size,
-                            (elfshdr.FileOffset + elfshdr.Size + elfshdr.Align - 1) & ~(elfshdr.Align - 1),
-                            i));
+                writer.Write(String.Format("Section[{0}]\n{1}\n", i, sections[i].Header.ToString()));
             }
 
             // Close writer

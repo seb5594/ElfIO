@@ -20,7 +20,7 @@ namespace ElfIO
             return default(T);
         }
 
-        public static Byte[] ToByteArray<T>(this T @this)
+        public static Byte[] ToByteArray<T>(this T @this, Boolean reverse = false)
         {
             if (@this == null || @this is Byte[])
                 return @this as Byte[];
@@ -44,7 +44,7 @@ namespace ElfIO
                 {
                     gch.Free();
                 }
-                return ba;
+                return reverse ? ba.Reverse() as Byte[] : ba;
             };
             Func<String, Byte[]> StringToBytes = str => Encoding.ASCII.GetBytes(str + "\0");
 

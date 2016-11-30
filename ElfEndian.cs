@@ -12,7 +12,7 @@ namespace ElfIO
 
         public ElfEndian(ElfData elfdata)
         {
-            reverse = elfdata == ElfData.ED_LSB ? BitConverter.IsLittleEndian : elfdata == ElfData.ED_MSB ? !BitConverter.IsLittleEndian : false;
+            reverse = elfdata == ElfData.ED_LSB ? !BitConverter.IsLittleEndian : elfdata == ElfData.ED_MSB ? BitConverter.IsLittleEndian : false;
             /*if (elfdata == ElfData.ED_MSB)
             {
                 if (BitConverter.IsLittleEndian)
